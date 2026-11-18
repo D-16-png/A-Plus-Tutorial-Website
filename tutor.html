@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Dashboard | Portal</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body class="dashboard-body">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>TutorPortal</h2>
+        </div>
+        <ul class="nav-links">
+            <li class="active"><a href="#dashboard">📊 Dashboard</a></li>
+            <li><a href="#schedule">📅 My Schedule</a></li>
+            <li><a href="#students">👨‍🎓 My Students</a></li>
+            <li><a href="#comments">💬 My Comments</a></li>
+            <li><a href="#messages">💬 Messages</a></li>
+            <li><a href="#earnings">🗓️ Attendance &amp; Payment</a></li>
+            <li><a href="#profile">👤 Profile</a></li>
+            <li><a href="#settings">⚙️ Settings</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <a href="index.html" class="logout-btn">Logout</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-bar">
+            <h1>Welcome back, Tutor!</h1>
+            <div class="user-profile">
+                <span>👤 John Doe</span>
+            </div>
+        </header>
+
+        <section class="content-section tutor-dashboard" id="dashboard">
+            <div class="welcome-banner">
+                <div>
+                    <h1 id="dashWelcomeName">Welcome back, Tutor!</h1>
+                    <p>Here is what is happening with your tutoring business today.</p>
+                </div>
+                <div class="quick-actions">
+                    <button class="action-btn" id="dashboardAddStudent" type="button">+ Add Student</button>
+                    <button class="action-btn primary" id="dashboardRecordSession" type="button">+ Record Session</button>
+                </div>
+            </div>
+
+            <div class="stats-grid dashboard-stats" aria-label="Tutor statistics">
+                <div class="stat-card">
+                    <div class="stat-icon" aria-hidden="true">👨‍🎓</div>
+                    <div><h3>Total Students</h3><p class="stat-number" id="dashTotalStudents">0</p></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" aria-hidden="true">⏱️</div>
+                    <div><h3>Hours Taught</h3><p class="stat-number" id="dashTotalHours">0 Hrs</p></div>
+                </div>
+                <div class="stat-card highlight-card">
+                    <div class="stat-icon" aria-hidden="true">💰</div>
+                    <div><h3>Total Payments</h3><p class="stat-number" id="dashTotalEarnings">Br 0.00</p></div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <section class="dashboard-panel">
+                    <div class="panel-header">
+                        <h2>Recent Sessions</h2>
+                        <a href="#earnings" data-dashboard-view="earnings">View All</a>
+                    </div>
+                    <div class="panel-content" id="dashRecentSessions" aria-live="polite">
+                        <p class="dashboard-empty">No recent sessions recorded.</p>
+                    </div>
+                </section>
+                <section class="dashboard-panel">
+                    <div class="panel-header">
+                        <h2>Latest Note</h2>
+                        <a href="#comments" data-dashboard-view="comments">View All</a>
+                    </div>
+                    <div class="panel-content" id="dashLatestComment" aria-live="polite">
+                        <p class="dashboard-empty">No notes yet. Write your first comment!</p>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <section class="content-section" id="schedule" hidden>
+            <h2>Today's Schedule</h2>
+            <form class="add-class-form" id="addClassForm">
+                <input type="text" id="className" placeholder="Subject (e.g., Math)" aria-label="Subject" required>
+                <input type="text" id="classStudentName" placeholder="Student Name" aria-label="Student name" required>
+                <input type="time" id="classTime" aria-label="Class time" required>
+                <input type="month" id="classMonth" aria-label="Class month" required>
+                <button type="submit">Add Class</button>
+            </form>
+            <div class="schedule-list" id="scheduleList">
+                <div class="schedule-item">
+                    <div class="time">10:00 AM</div>
+                    <div class="details">
+                        <h4>Mathematics - Algebra</h4>
+                        <p>Student: Alice Johnson</p>
+                    </div>
+                    <button class="join-btn" type="button">Added</button>
+                </div>
+                <div class="schedule-item">
+                    <div class="time">02:00 PM</div>
+                    <div class="details">
+                        <h4>Physics - Mechanics</h4>
+                        <p>Student: Bob Smith</p>
+                    </div>
+                    <button class="join-btn" type="button">Added</button>
+                </div>
+                <div class="schedule-item">
+                    <div class="time">04:30 PM</div>
+                    <div class="details">
+                        <h4>Chemistry - Organic</h4>
+                        <p>Student: Charlie Brown</p>
+                    </div>
+                    <button class="join-btn" type="button">Added</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" id="students" hidden>
+            <div class="section-header">
+                <h2>My Students</h2>
+                <button class="add-btn" id="openStudentForm" type="button">+ Add New Student</button>
+            </div>
+
+            <form id="studentForm" class="student-form" hidden>
+                <input type="text" id="studentName" placeholder="Student Name" aria-label="Student name" required>
+                <input type="text" id="studentSubject" placeholder="Subject (e.g., Math)" aria-label="Subject" required>
+                <input type="text" id="studentGradeLevel" placeholder="Grade Level" aria-label="Grade level" required>
+                <div class="student-form-actions">
+                    <button type="submit" class="save-btn">Save</button>
+                    <button type="button" class="cancel-btn" id="cancelStudentForm">Cancel</button>
+                </div>
+            </form>
+
+            <div class="search-container">
+                <input type="search" id="studentSearch" placeholder="🔍 Search students by name or subject..." aria-label="Search students by name or subject">
+            </div>
+            <div class="students-grid" id="studentsGrid" aria-live="polite"></div>
+        </section>
+        <section class="content-section" id="comments" hidden>
+            <div class="section-header">
+                <h2>Tutoring Feedback &amp; Notes</h2>
+            </div>
+            <form class="comment-form-container" id="commentForm">
+                <label class="visually-hidden" for="commentText">Your feedback or notes</label>
+                <textarea id="commentText" placeholder="Write feedback, notes, or reflections about your tutoring sessions..." rows="4" required></textarea>
+                <button type="submit" class="post-btn">Post Comment</button>
+            </form>
+            <div class="comments-list" id="commentsList" aria-live="polite"></div>
+        </section>
+        <section class="content-section" id="messages" hidden>
+            <h2>Messages</h2>
+            <p>Your messages will appear here.</p>
+        </section>
+        <section class="content-section" id="earnings" hidden>
+            <div class="section-header">
+                <h2>Attendance &amp; Payment</h2>
+            </div>
+
+            <div class="stats-grid earnings-stats" aria-live="polite">
+                <div class="stat-card earnings-total-card">
+                    <h3>Total Payments</h3>
+                    <p class="stat-number" id="totalEarningsDisplay">Br 0.00</p>
+                </div>
+                <div class="stat-card earnings-hours-card">
+                    <h3>Total Working Hours</h3>
+                    <p class="stat-number" id="totalHoursDisplay">0 Hrs</p>
+                </div>
+            </div>
+
+            <form class="payment-form-container" id="completedSessionForm">
+                <h3>Record Attendance &amp; Payment</h3>
+                <div class="form-row session-form-row">
+                    <input type="text" id="payCustomerName" placeholder="Customer Name" aria-label="Customer name" required>
+                    <input type="tel" id="payCustomerPhone" placeholder="Customer Phone" aria-label="Customer phone">
+                    <input type="text" id="payGrade" placeholder="Grade (e.g., Grade 10)" aria-label="Grade">
+                    <input type="month" id="payMonth" aria-label="Session month" required>
+                    <input type="number" id="payHours" placeholder="Hours (e.g., 2.5)" aria-label="Hours" min="0.01" step="0.5" required>
+                    <input type="text" id="payLocation" placeholder="Tutoring Location" aria-label="Tutoring location">
+                    <input type="number" id="payAmount" placeholder="Amount (in Birr)" aria-label="Amount in Birr" min="0.01" step="0.01" required>
+                    <input type="tel" id="payTutorPhone" placeholder="Your Phone (Tutor)" aria-label="Tutor phone">
+                    <input type="text" id="payTutorAccount" placeholder="Your CBE Account Number" aria-label="Tutor CBE account">
+                    <button type="submit" class="save-btn">Add Record</button>
+                </div>
+            </form>
+
+            <div class="payment-history">
+                <h3>Attendance &amp; Payment History</h3>
+                <div class="earnings-table-wrap">
+                    <table class="earnings-table">
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Customer Info</th>
+                                <th>Grade</th>
+                                <th>Location</th>
+                                <th>Hours</th>
+                                <th>Amount</th>
+                                <th>Tutor Details (Paid To)</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="earningsList"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="profile" hidden>
+            <div class="section-header">
+                <h2>Tutor Profile &amp; Payment Details</h2>
+            </div>
+            <form class="profile-card" id="profileForm">
+                <h3>Personal Information</h3>
+                <div class="form-row profile-form-row">
+                    <input type="text" id="profName" placeholder="Full Name" aria-label="Full name" required>
+                    <input type="tel" id="profPhone" placeholder="Phone (e.g., 0911223344 or +251911223344)" aria-label="Phone number">
+                </div>
+                <h3>Payment Information</h3>
+                <div class="form-row profile-form-row">
+                    <input type="text" id="profCbeAccount" placeholder="CBE Account Number (1000...)" aria-label="CBE account number">
+                    <input type="text" id="profCbeName" placeholder="Account Holder Name" aria-label="Account holder name">
+                </div>
+                <button type="submit" class="save-btn profile-save-btn">Save Profile Details</button>
+                <p id="profileSaveMsg" role="status" hidden>✅ Profile saved successfully!</p>
+            </form>
+        </section>
+        <section class="content-section" id="settings" hidden>
+            <h2>Settings</h2>
+            <p>Your account settings will appear here.</p>
+        </section>
+    </main>
+
+    <script>
+        const classesStorageKey = 'myClasses';
+        const scheduleList = document.getElementById('scheduleList');
+
+        function getSavedClasses() {
+            try {
+                const savedClasses = JSON.parse(localStorage.getItem(classesStorageKey) || '[]');
+                return Array.isArray(savedClasses) ? savedClasses : [];
+            } catch {
+                return [];
+            }
+        }
+
+        function formatClassTime(timeValue, monthValue) {
+            const [hours, minutes] = timeValue.split(':').map(Number);
+            if (!Number.isInteger(hours) || !Number.isInteger(minutes)) return '';
+
+            const period = hours >= 12 ? 'PM' : 'AM';
+            const displayHour = hours % 12 || 12;
+            const monthMatch = typeof monthValue === 'string' && monthValue.match(/^(\d{4})-(0[1-9]|1[0-2])$/);
+            const monthLabel = monthMatch
+                ? new Date(Number(monthMatch[1]), Number(monthMatch[2]) - 1).toLocaleDateString(undefined, { month: 'long', year: 'numeric' })
+                : '';
+
+            return `${displayHour}:${String(minutes).padStart(2, '0')} ${period}${monthLabel ? ` · ${monthLabel}` : ''}`;
+        }
+
+        function displayClasses() {
+            getSavedClasses().forEach((savedClass) => {
+                if (!savedClass || typeof savedClass.subject !== 'string' ||
+                    typeof savedClass.student !== 'string' || typeof savedClass.time !== 'string') return;
+
+                const formattedTime = formatClassTime(savedClass.time, savedClass.month);
+                if (!formattedTime) return;
+
+                const item = document.createElement('div');
+                item.className = 'schedule-item';
+
+                const time = document.createElement('div');
+                time.className = 'time';
+                time.textContent = formattedTime;
+
+                const details = document.createElement('div');
+                details.className = 'details';
+                const title = document.createElement('h4');
+                title.textContent = savedClass.subject;
+                const studentInfo = document.createElement('p');
+                studentInfo.textContent = `Student: ${savedClass.student}`;
+                details.append(title, studentInfo);
+
+                const joinButton = document.createElement('button');
+                joinButton.className = 'join-btn';
+                joinButton.type = 'button';
+                joinButton.textContent = 'Added';
+
+                item.append(time, details, joinButton);
+                scheduleList.append(item);
+            });
+        }
+
+        displayClasses();
+
+        document.getElementById('addClassForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const subject = document.getElementById('className').value.trim();
+            const student = document.getElementById('classStudentName').value.trim();
+            const time = document.getElementById('classTime').value;
+            const month = document.getElementById('classMonth').value;
+            if (!subject || !student || !time || !month) return;
+
+            const savedClasses = getSavedClasses();
+            savedClasses.push({ subject, student, time, month });
+            localStorage.setItem(classesStorageKey, JSON.stringify(savedClasses));
+            const item = document.createElement('div');
+            item.className = 'schedule-item';
+            const timeElement = document.createElement('div');
+            timeElement.className = 'time';
+            timeElement.textContent = formatClassTime(time, month);
+            const details = document.createElement('div');
+            details.className = 'details';
+            const title = document.createElement('h4');
+            title.textContent = subject;
+            const studentInfo = document.createElement('p');
+            studentInfo.textContent = `Student: ${student}`;
+            details.append(title, studentInfo);
+            const joinButton = document.createElement('button');
+            joinButton.className = 'join-btn';
+            joinButton.type = 'button';
+            joinButton.textContent = 'Added';
+            item.append(timeElement, details, joinButton);
+            scheduleList.append(item);
+            event.currentTarget.reset();
+        });
+
+        const studentsStorageKey = 'myStudents';
+        const studentForm = document.getElementById('studentForm');
+        const studentsGrid = document.getElementById('studentsGrid');
+        const studentSearch = document.getElementById('studentSearch');
+
+        function getSavedStudents() {
+            try {
+                const students = JSON.parse(localStorage.getItem(studentsStorageKey) || '[]');
+                return Array.isArray(students) ? students.filter((student) =>
+                    student && typeof student.name === 'string' &&
+                    typeof student.subject === 'string' &&
+                    (typeof student.gradeLevel === 'string' || typeof student.email === 'string')
+                ) : [];
+            } catch {
+                return [];
+            }
+        }
+
+        function displayStudents() {
+            const query = studentSearch.value.trim().toLowerCase();
+            const students = getSavedStudents().filter((student) =>
+                `${student.name} ${student.subject}`.toLowerCase().includes(query)
+            );
+            studentsGrid.replaceChildren();
+
+            if (students.length === 0) {
+                const message = document.createElement('p');
+                message.className = 'students-empty';
+                message.textContent = query ? 'No students match your search.' : 'No students added yet.';
+                studentsGrid.append(message);
+                return;
+            }
+
+            students.forEach((student) => {
+                const card = document.createElement('article');
+                card.className = 'student-card';
+                const name = document.createElement('h3');
+                name.textContent = student.name;
+                const subject = document.createElement('p');
+                subject.textContent = `Subject: ${student.subject}`;
+                const gradeLevel = document.createElement('p');
+                gradeLevel.textContent = `Grade level: ${student.gradeLevel || 'Not specified'}`;
+                card.append(name, subject, gradeLevel);
+                studentsGrid.append(card);
+            });
+        }
+
+        document.getElementById('openStudentForm').addEventListener('click', () => {
+            studentForm.hidden = false;
+            document.getElementById('studentName').focus();
+        });
+
+        document.getElementById('cancelStudentForm').addEventListener('click', () => {
+            studentForm.reset();
+            studentForm.hidden = true;
+        });
+
+        studentForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const student = {
+                name: document.getElementById('studentName').value.trim(),
+                subject: document.getElementById('studentSubject').value.trim(),
+                gradeLevel: document.getElementById('studentGradeLevel').value.trim()
+            };
+            if (!student.name || !student.subject || !student.gradeLevel) return;
+
+            const savedStudents = getSavedStudents();
+            savedStudents.push(student);
+            try {
+                localStorage.setItem(studentsStorageKey, JSON.stringify(savedStudents));
+            } catch {
+                return;
+            }
+            studentForm.reset();
+            studentForm.hidden = true;
+            displayStudents();
+            refreshDashboard();
+        });
+
+        studentSearch.addEventListener('input', displayStudents);
+        displayStudents();
+
+        const commentsStorageKey = 'tutorComments';
+        const commentForm = document.getElementById('commentForm');
+        const commentText = document.getElementById('commentText');
+        const commentsList = document.getElementById('commentsList');
+
+        function getSavedComments() {
+            try {
+                const savedComments = JSON.parse(localStorage.getItem(commentsStorageKey) || '[]');
+                const comments = Array.isArray(savedComments) ? savedComments.filter((comment) =>
+                    comment && typeof comment.text === 'string'
+                ) : [];
+                let assignedIds = false;
+                comments.forEach((comment) => {
+                    if (comment.id === undefined || comment.id === null) {
+                        comment.id = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+                        assignedIds = true;
+                    }
+                });
+                if (assignedIds) localStorage.setItem(commentsStorageKey, JSON.stringify(comments));
+                return comments;
+            } catch {
+                return [];
+            }
+        }
+
+        function displayComments() {
+            const comments = getSavedComments();
+            commentsList.replaceChildren();
+
+            if (comments.length === 0) {
+                const emptyMessage = document.createElement('p');
+                emptyMessage.className = 'comments-empty';
+                emptyMessage.textContent = 'No comments posted yet.';
+                commentsList.append(emptyMessage);
+                return;
+            }
+
+            comments.slice().reverse().forEach((comment) => {
+                const article = document.createElement('article');
+                article.className = 'comment-card';
+
+                const header = document.createElement('div');
+                header.className = 'comment-header';
+                const author = document.createElement('div');
+                author.className = 'comment-author';
+                author.textContent = `👤 ${typeof comment.author === 'string' ? comment.author : 'John Doe (Tutor)'}`;
+                const date = document.createElement('time');
+                date.className = 'comment-date';
+                if (typeof comment.date === 'string' && !Number.isNaN(Date.parse(comment.date))) {
+                    date.dateTime = comment.date;
+                    date.textContent = new Date(comment.date).toLocaleString();
+                } else {
+                    date.textContent = 'Date unavailable';
+                }
+                header.append(author, date);
+
+                const text = document.createElement('p');
+                text.className = 'comment-text';
+                text.textContent = comment.text;
+                article.append(header, text);
+
+                if (comment.id !== undefined) {
+                    const deleteButton = document.createElement('button');
+                    deleteButton.className = 'delete-comment';
+                    deleteButton.type = 'button';
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.addEventListener('click', () => deleteComment(comment.id));
+                    article.append(deleteButton);
+                }
+
+                commentsList.append(article);
+            });
+        }
+
+        function deleteComment(id) {
+            if (!window.confirm('Delete this comment permanently?')) return;
+
+            const comments = getSavedComments().filter((comment) => comment.id !== id);
+            try {
+                localStorage.setItem(commentsStorageKey, JSON.stringify(comments));
+                displayComments();
+            } catch {
+                // Keep the current list if browser storage is unavailable.
+            }
+        }
+
+        commentForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const text = commentText.value.trim();
+            if (!text) return;
+
+            const comments = getSavedComments();
+            comments.push({
+                id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+                author: 'John Doe (Tutor)',
+                date: new Date().toISOString(),
+                text
+            });
+            try {
+                localStorage.setItem(commentsStorageKey, JSON.stringify(comments));
+            } catch {
+                return;
+            }
+
+            commentForm.reset();
+            displayComments();
+            refreshDashboard();
+        });
+
+        displayComments();
+
+        const paymentsStorageKey = 'tutorEarnings';
+        const previousPaymentsStorageKey = 'tutorPayments';
+        const completedSessionForm = document.getElementById('completedSessionForm');
+        const earningsList = document.getElementById('earningsList');
+        const totalEarningsDisplay = document.getElementById('totalEarningsDisplay');
+        const totalHoursDisplay = document.getElementById('totalHoursDisplay');
+        const payMonthInput = document.getElementById('payMonth');
+        payMonthInput.value = new Date().toISOString().slice(0, 7);
+
+        function autoFillTutorDetails() {
+            try {
+                const profile = JSON.parse(localStorage.getItem('tutorProfile') || '{}');
+                document.getElementById('payTutorPhone').value = profile.profPhone || profile.phone || '';
+                document.getElementById('payTutorAccount').value = profile.profCbeAccount || profile.cbeAccount || '';
+            } catch {
+                // Keep the existing form values if saved profile data is unavailable.
+            }
+        }
+
+        function getSavedPayments() {
+            try {
+                const currentSaved = localStorage.getItem(paymentsStorageKey);
+                const previousSaved = localStorage.getItem(previousPaymentsStorageKey);
+                const usingPreviousStorage = currentSaved === null && previousSaved !== null;
+                const saved = JSON.parse(currentSaved ?? previousSaved ?? '[]');
+                if (!Array.isArray(saved)) return [];
+                let needsSave = usingPreviousStorage;
+                const payments = saved.filter((payment) => payment &&
+                    typeof (payment.customer ?? payment.student) === 'string' &&
+                    Number.isFinite(Number(payment.amount)) && Number(payment.amount) > 0
+                ).map((payment) => {
+                    const normalized = {
+                        id: payment.id ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+                        customer: payment.customer ?? payment.student,
+                        customerPhone: typeof payment.customerPhone === 'string' ? payment.customerPhone : '',
+                        grade: typeof payment.grade === 'string' ? payment.grade : '—',
+                        month: typeof payment.month === 'string' ? payment.month :
+                            (typeof payment.date === 'string' ? payment.date.slice(0, 7) : ''),
+                        hours: Number.isFinite(Number(payment.hours)) && Number(payment.hours) > 0 ? Number(payment.hours) : 0,
+                        location: typeof payment.location === 'string' ? payment.location : '',
+                        amount: Number(payment.amount),
+                        tutorPhone: typeof payment.tutorPhone === 'string' ? payment.tutorPhone : '',
+                        tutorAccount: typeof payment.tutorAccount === 'string' ? payment.tutorAccount : ''
+                    };
+                    if (payment.id === undefined || payment.customer === undefined || payment.month === undefined || payment.hours === undefined ||
+                        payment.customerPhone === undefined || payment.location === undefined || payment.tutorPhone === undefined || payment.tutorAccount === undefined) {
+                        needsSave = true;
+                    }
+                    return normalized;
+                });
+                if (needsSave) localStorage.setItem(paymentsStorageKey, JSON.stringify(payments));
+                return payments;
+            } catch {
+                return [];
+            }
+        }
+
+        function formatBirr(amount) {
+            return `Br ${Number(amount).toFixed(2)}`;
+        }
+
+        function formatPaymentMonth(month) {
+            const match = typeof month === 'string' && month.match(/^([0-9]{4})-(0[1-9]|1[0-2])$/);
+            return match ? new Date(Number(match[1]), Number(match[2]) - 1).toLocaleDateString(undefined, { month: 'long', year: 'numeric' }) : '—';
+        }
+
+        function displayPayments() {
+            const payments = getSavedPayments();
+            totalEarningsDisplay.textContent = formatBirr(payments.reduce((sum, payment) => sum + payment.amount, 0));
+            totalHoursDisplay.textContent = `${payments.reduce((sum, payment) => sum + payment.hours, 0)} Hrs`;
+            earningsList.replaceChildren();
+
+            if (payments.length === 0) {
+                const row = document.createElement('tr');
+                const emptyCell = document.createElement('td');
+                emptyCell.colSpan = 8;
+                emptyCell.className = 'payments-empty';
+                emptyCell.textContent = 'No sessions recorded yet.';
+                row.append(emptyCell);
+                earningsList.append(row);
+                return;
+            }
+
+            payments.slice().reverse().forEach((payment) => {
+                const row = document.createElement('tr');
+                const customerInfo = payment.customerPhone
+                    ? `${payment.customer} · ${payment.customerPhone}`
+                    : payment.customer;
+                const tutorInfo = [payment.tutorPhone, payment.tutorAccount].filter(Boolean).join(' · ') || '—';
+                [formatPaymentMonth(payment.month), customerInfo, payment.grade, payment.location || '—',
+                    `${payment.hours} Hrs`, formatBirr(payment.amount), tutorInfo].forEach((value) => {
+                    const cell = document.createElement('td');
+                    cell.textContent = value;
+                    row.append(cell);
+                });
+                const actionCell = document.createElement('td');
+                const deleteButton = document.createElement('button');
+                deleteButton.type = 'button';
+                deleteButton.className = 'delete-payment';
+                deleteButton.textContent = 'Delete';
+                deleteButton.addEventListener('click', () => {
+                    try {
+                        const updatedPayments = getSavedPayments().filter((savedPayment) => savedPayment.id !== payment.id);
+                        localStorage.setItem(paymentsStorageKey, JSON.stringify(updatedPayments));
+                        displayPayments();
+                        refreshDashboard();
+                    } catch {
+                        // Keep the current list if browser storage is unavailable.
+                    }
+                });
+                actionCell.append(deleteButton);
+                row.append(actionCell);
+                earningsList.append(row);
+            });
+        }
+
+        completedSessionForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const customer = document.getElementById('payCustomerName').value.trim();
+            const customerPhone = document.getElementById('payCustomerPhone').value.trim();
+            const grade = document.getElementById('payGrade').value.trim();
+            const month = payMonthInput.value;
+            const hours = Number(document.getElementById('payHours').value);
+            const location = document.getElementById('payLocation').value.trim();
+            const amount = Number(document.getElementById('payAmount').value);
+            const tutorPhone = document.getElementById('payTutorPhone').value.trim();
+            const tutorAccount = document.getElementById('payTutorAccount').value.trim();
+            if (!customer || !month || !Number.isFinite(hours) || hours <= 0 || !Number.isFinite(amount) || amount <= 0) return;
+
+            const payments = getSavedPayments();
+            payments.push({
+                id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+                customer, customerPhone, grade, month, hours, location, amount, tutorPhone, tutorAccount
+            });
+            try {
+                localStorage.setItem(paymentsStorageKey, JSON.stringify(payments));
+            } catch {
+                return;
+            }
+            completedSessionForm.reset();
+            payMonthInput.value = new Date().toISOString().slice(0, 7);
+            autoFillTutorDetails();
+            displayPayments();
+            refreshDashboard();
+        });
+
+        displayPayments();
+
+        const profileStorageKey = 'tutorProfile';
+        const profileForm = document.getElementById('profileForm');
+        const profileSaveMsg = document.getElementById('profileSaveMsg');
+        const profileFields = ['profName', 'profPhone', 'profCbeAccount', 'profCbeName'];
+
+        try {
+            const savedProfile = JSON.parse(localStorage.getItem(profileStorageKey) || '{}');
+            profileFields.forEach((id) => {
+                if (typeof savedProfile[id] === 'string') document.getElementById(id).value = savedProfile[id];
+            });
+        } catch {
+            // Start with an empty profile if saved data is unavailable.
+        }
+
+        profileForm.addEventListener('input', () => {
+            profileSaveMsg.hidden = true;
+        });
+
+        profileForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const profile = {};
+            profileFields.forEach((id) => {
+                profile[id] = document.getElementById(id).value.trim();
+            });
+            try {
+                localStorage.setItem(profileStorageKey, JSON.stringify(profile));
+                autoFillTutorDetails();
+                profileSaveMsg.hidden = false;
+                refreshDashboard();
+            } catch {
+                profileSaveMsg.hidden = true;
+            }
+        });
+
+        const navItems = document.querySelectorAll('.nav-links li');
+        const views = document.querySelectorAll('.main-content > section[id]');
+
+        function showSection(targetId) {
+            const targetView = document.getElementById(targetId);
+            if (!targetView || !targetView.matches('.main-content > section[id]')) return;
+
+            views.forEach((view) => {
+                view.hidden = view !== targetView;
+            });
+            navItems.forEach((item) => {
+                item.classList.toggle('active', item.querySelector('a').getAttribute('href') === `#${targetId}`);
+            });
+            if (targetId === 'earnings') autoFillTutorDetails();
+        }
+
+        function refreshDashboard() {
+            const savedStudents = getSavedStudents();
+            const payments = getSavedPayments();
+            const comments = getSavedComments();
+            const profile = (() => {
+                try {
+                    return JSON.parse(localStorage.getItem(profileStorageKey) || '{}');
+                } catch {
+                    return {};
+                }
+            })();
+
+            document.getElementById('dashWelcomeName').textContent = profile.profName
+                ? `Welcome back, ${profile.profName}!`
+                : 'Welcome back, Tutor!';
+            document.getElementById('dashTotalStudents').textContent = savedStudents.length;
+            document.getElementById('dashTotalHours').textContent = `${payments.reduce((sum, payment) => sum + payment.hours, 0)} Hrs`;
+            document.getElementById('dashTotalEarnings').textContent = formatBirr(
+                payments.reduce((sum, payment) => sum + payment.amount, 0)
+            );
+
+            const recentSessions = document.getElementById('dashRecentSessions');
+            recentSessions.replaceChildren();
+            const latestPayments = payments.slice().reverse().slice(0, 3);
+            if (latestPayments.length === 0) {
+                const empty = document.createElement('p');
+                empty.className = 'dashboard-empty';
+                empty.textContent = 'No recent sessions recorded.';
+                recentSessions.append(empty);
+            } else {
+                latestPayments.forEach((payment) => {
+                    const item = document.createElement('div');
+                    item.className = 'dashboard-session';
+                    const details = document.createElement('div');
+                    const customer = document.createElement('strong');
+                    customer.textContent = payment.customer;
+                    const summary = document.createElement('span');
+                    summary.textContent = `${formatPaymentMonth(payment.month)} · ${payment.hours} Hrs`;
+                    details.append(customer, summary);
+                    const amount = document.createElement('span');
+                    amount.className = 'session-amount';
+                    amount.textContent = formatBirr(payment.amount);
+                    item.append(details, amount);
+                    recentSessions.append(item);
+                });
+            }
+
+            const latestComment = document.getElementById('dashLatestComment');
+            latestComment.replaceChildren();
+            const comment = comments[comments.length - 1];
+            if (!comment) {
+                const empty = document.createElement('p');
+                empty.className = 'dashboard-empty';
+                empty.textContent = 'No notes yet. Write your first comment!';
+                latestComment.append(empty);
+            } else {
+                const note = document.createElement('p');
+                note.className = 'dashboard-note';
+                note.append(document.createTextNode(comment.text));
+                if (typeof comment.date === 'string' && !Number.isNaN(Date.parse(comment.date))) {
+                    const date = document.createElement('time');
+                    date.dateTime = comment.date;
+                    date.textContent = new Date(comment.date).toLocaleString();
+                    note.append(date);
+                }
+                latestComment.append(note);
+            }
+        }
+
+        navItems.forEach((item) => {
+            const link = item.querySelector('a');
+            link.addEventListener('click', (event) => {
+                const targetId = link.getAttribute('href').slice(1);
+                if (!document.getElementById(targetId)?.matches('.main-content > section[id]')) return;
+                event.preventDefault();
+                showSection(targetId);
+            });
+        });
+
+        document.getElementById('dashboardAddStudent').addEventListener('click', () => {
+            showSection('students');
+            studentForm.hidden = false;
+            document.getElementById('studentName').focus();
+        });
+
+        document.getElementById('dashboardRecordSession').addEventListener('click', () => {
+            showSection('earnings');
+            document.getElementById('payCustomerName').focus();
+        });
+
+        document.querySelectorAll('[data-dashboard-view]').forEach((link) => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                showSection(link.dataset.dashboardView);
+            });
+        });
+
+        refreshDashboard();
+    </script>
+</body>
+</html>

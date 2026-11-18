@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        body {
+            display: block;
+            min-height: 100vh;
+            padding: 0;
+            background: #f4f6fc;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 18px clamp(20px, 6vw, 80px);
+            background: #fff;
+            box-shadow: 0 2px 12px rgb(28 20 58 / 8%);
+        }
+
+        .brand,
+        .topbar a:last-child {
+            color: #5368d5;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .brand {
+            font-size: 1.2rem;
+        }
+
+        main {
+            width: min(100% - 40px, 1100px);
+            margin: 0 auto;
+            padding: 48px 0;
+        }
+
+        .welcome {
+            margin-bottom: 30px;
+        }
+
+        .welcome h1 {
+            margin: 0 0 8px;
+            text-align: left;
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+        }
+
+        .welcome p,
+        .card p {
+            color: #6b7082;
+        }
+
+        .welcome p {
+            margin: 0;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            padding: 24px;
+            border: 1px solid #e8eaf2;
+            border-radius: 14px;
+            background: #fff;
+            box-shadow: 0 8px 24px rgb(28 20 58 / 5%);
+        }
+
+        .card h2 {
+            margin: 0 0 10px;
+            font-size: 1.1rem;
+        }
+
+        .card p {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .stat {
+            display: block;
+            margin-bottom: 8px;
+            color: #5368d5;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .sessions {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 700px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sessions {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="index.html">Tutor Portal</a>
+        <a href="index.html">Log out</a>
+    </header>
+
+    <main>
+        <section class="welcome" aria-labelledby="welcome-title">
+            <h1 id="welcome-title">Customer Dashboard</h1>
+            <p>Welcome back! Here’s an overview of your learning activity.</p>
+        </section>
+
+        <section class="dashboard-grid" aria-label="Dashboard overview">
+            <article class="card">
+                <span class="stat">0</span>
+                <h2>Upcoming sessions</h2>
+                <p>Your booked tutoring sessions will appear here.</p>
+            </article>
+            <article class="card">
+                <span class="stat">0</span>
+                <h2>My tutors</h2>
+                <p>Tutors you connect with will appear here.</p>
+            </article>
+            <article class="card">
+                <span class="stat">—</span>
+                <h2>Learning profile</h2>
+                <p>Add your subjects and goals to personalize your tutoring experience.</p>
+            </article>
+            <article class="card sessions">
+                <h2>Upcoming sessions</h2>
+                <p>No sessions booked yet.</p>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
